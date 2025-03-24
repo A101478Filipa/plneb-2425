@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Pesquisar</title>
+{% endblock %}
+
+{% block body %}
+
+<form class="row row-cols-lg-auto g-3 align-items-center" method="POST" action="/pesquisar">
+    <div class="col-12">
+        <label class="visually-hidden" for="inlineFormInputGroupUsername">String</label>
+        <input type="text" class="form-control" id="inlineFormInputGroupUsername" name="query" placeholder="Digita a tua pesquisa">
+    </div>
+
+    <div class="col-12">
+        <label class="visually-hidden" for="inlineFormSelectPref">Opção</label>
+        <select class="form-select" id="inlineFormSelectPref" name="opção">
+          <option selected>Escolhe</option>
+          <option value="Match">Match</option>
+          <option value="Referência">Referência</option>
+        </select>
+      </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+</form>
+
+{% if pesquisa %}
+        <h4 class="text-center">Resultados para: <span class="text-primary">"{{ pesquisa }}"</span></h4>
+
+        {% if resultados %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Designação</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in resultados.items() %}
+                    <tr>
+                        <td>{{ key | safe }}</td> 
+                        <td>{{ value | safe }}</td> 
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-center text-danger mt-3">Nenhum conceito encontrado.</p>
+        {% endif %}
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}
